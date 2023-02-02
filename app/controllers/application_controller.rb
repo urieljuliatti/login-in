@@ -29,6 +29,3 @@ class ApplicationController < ActionController::API
     render json: {message: 'You must be authorized.'}, status: :unauthorized unless authorized_user && authorized_user.admin?
   end
 end
-
-#m eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyfQ.0NAXbbVzeMaKZAl8HdOq3JcgIDf5xpGF2rkg5frw6FE
-#u eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.ETUYUOkmfnWsWIvA8iBOkE2s1ZQ0V_zgnG_c4QRrhbg
