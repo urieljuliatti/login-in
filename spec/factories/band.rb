@@ -11,5 +11,8 @@ FactoryBot.define do
     trait(:sodom) do
       name { 'Sodom' }
     end
+    trait(:invalid) do
+      name { '' }
+    end
   end
 end

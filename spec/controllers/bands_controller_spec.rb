@@ -27,8 +27,8 @@ RSpec.describe BandsController, type: :request do
   end
 
   describe 'GET /band/1' do
-    context 'when the request has an authorized user' do
-      it 'show the band' do
+    context 'when gets the band' do
+      it 'shows the band' do
         get bands_path(band.id), headers: @header
         json_response = json_exclude_keys(parse_json(response.body)[0])
         band_json = json_exclude_keys(parse_json(band.to_json))
@@ -38,15 +38,21 @@ RSpec.describe BandsController, type: :request do
     end
   end
   describe 'POST /band/1' do
-    context 'when the request has an authorized user' do
+    context 'when the band is valid' do
       it 'creates a band' do
         post bands_path, params: { band: attributes_for(:band) }, headers: @header
         expect(response).to have_http_status(:created)
       end
       it 'increments a Band by one' do
         expect {
-          post bands_path, params: { band: attributes_for(:band) }, headers: @header 
+          post bands_path, params: { band: attributes_for(:band) }, headers: @header
         }.to change(Band, :count).by 1
+      end
+    end
+    context 'when the band name is invalid' do
+      it 'renders unprocessable entity' do
+        post bands_path, params: { band: attributes_for(:band, :invalid) }, headers: @header
+        expect(response).to have_http_status(:unprocessable_entity)
       end
     end
   end
