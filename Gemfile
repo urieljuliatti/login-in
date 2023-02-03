@@ -29,6 +29,7 @@ end
 
 group :test do
   gem 'faker'
+  gem 'json_spec'
   gem 'mocha', '~> 1.13'
   gem 'rack-test'
   gem 'rails-controller-testing'

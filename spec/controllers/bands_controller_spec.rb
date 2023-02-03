@@ -30,10 +30,10 @@ RSpec.describe BandsController, type: :request do
     context 'when the request has an authorized user' do
       it 'show the band' do
         get bands_path(band.id), headers: @header
-        json_response = JSON.parse(response.body)[0]
+        json_response = json_exclude_keys(parse_json(response.body)[0])
+        band_json = json_exclude_keys(parse_json(band.to_json))
         expect(response).to have_http_status(:ok)
-        # need to be improved with https://github.com/collectiveidea/json_spec
-        # expect(json_response['id']).to be eql(JSON.parse(band.to_json)['id'])
+        expect(json_response).to match(band_json)
       end
     end
   end
