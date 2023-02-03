@@ -10,7 +10,7 @@ class UsersController < ApplicationController
       token = encode({ user_id: @new_user.id })
       render json: { user: @new_user, token: token }, status: :ok
     else
-      render json: { error: 'Invalid User or Password'}, status: :unprocessable_entity
+      render json: { error: 'Invalid user data or duplicated presences.'}, status: :unprocessable_entity
     end
   end
 
