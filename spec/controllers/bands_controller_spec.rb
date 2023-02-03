@@ -29,7 +29,6 @@ RSpec.describe BandsController, type: :request do
   describe 'GET /band/1' do
     context 'when the request has an authorized user' do
       it 'show the band' do
-        band = create(:band)
         get bands_path(band.id), headers: @header
         json_response = JSON.parse(response.body)[0]
         expect(response).to have_http_status(:ok)
