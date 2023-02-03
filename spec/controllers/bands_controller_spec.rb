@@ -69,5 +69,32 @@ RSpec.describe BandsController, type: :request do
         expect(json_response['name']).to match(/Sodom/)
       end
     end
+    context 'when the band name is invalid' do
+      it 'renders unprocessable entity' do
+        new_band = attributes_for(:band)
+        band = @admin.bands.create(new_band)
+        put band_path(band), params: { band: attributes_for(:band, :invalid) }, headers: @header
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+  end
+
+  describe 'DELETE /band/1' do
+    before do
+      new_band = attributes_for(:band, :metallica)
+      @band = @admin.bands.create(new_band)
+    end
+
+    context 'when the band is valid' do
+      it 'deletes a band' do
+        delete band_path(@band.id), headers: @header
+        expect(response).to have_http_status(:no_content)
+      end
+      it 'decrements a Band by one' do
+        expect {
+          delete band_path(@band.id), headers: @header
+        }.to change(Band, :count).by -1
+      end
+    end
   end
 end
