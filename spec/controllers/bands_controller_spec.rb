@@ -37,4 +37,17 @@ RSpec.describe BandsController, type: :request do
       end
     end
   end
+  describe 'POST /band/1' do
+    context 'when the request has an authorized user' do
+      it 'creates a band' do
+        post bands_path, params: { band: attributes_for(:band) }, headers: @header
+        expect(response).to have_http_status(:created)
+      end
+      it 'increments a Band by one' do
+        expect {
+          post bands_path, params: { band: attributes_for(:band) }, headers: @header 
+        }.to change(Band, :count).by 1
+      end
+    end
+  end
 end
