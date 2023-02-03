@@ -10,7 +10,7 @@ RSpec.describe Band, type: :model do
   end
 
   describe 'validations' do
-    subject(:band) { described_class.create(name: 'Sodom') }
+    subject(:band) { FactoryBot.build(:band, :sodom) }
     it { is_expected.to validate_uniqueness_of(:name) }
     it { is_expected.to validate_presence_of(:name) }
   end

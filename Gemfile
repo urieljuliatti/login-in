@@ -37,3 +37,5 @@ group :test do
   gem 'simplecov', '0.17.1'
   gem 'webmock'
 end
+
+gem "database_cleaner-active_record", "~> 2.0", :group => :test

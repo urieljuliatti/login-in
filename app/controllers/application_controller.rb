@@ -16,9 +16,9 @@ class ApplicationController < ActionController::API
       end
     end
   end
-  
+
   def authorized_user
-    decoded_token = decode_token()
+    decoded_token = decode_token
     if decoded_token
       user_id = decoded_token[0]['user_id']
       @user = User.find_by(id: user_id)
@@ -26,6 +26,6 @@ class ApplicationController < ActionController::API
   end
 
   def authorize
-    render json: {message: 'You must be authorized.'}, status: :unauthorized unless authorized_user && authorized_user.admin?
+    render json: { message: 'You must be authorized.' }, status: :unauthorized unless authorized_user && authorized_user.admin?
   end
 end

@@ -8,5 +8,8 @@ FactoryBot.define do
     trait(:metallica) do
       name { 'Metallica' }
     end
+    trait(:sodom) do
+      name { 'Sodom' }
+    end
   end
 end

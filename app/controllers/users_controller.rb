@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     if @new_user.valid? && authorized_user.admin?
       @new_user.save
       token = encode({ user_id: @new_user.id })
-      render json: { user: @new_user, token: token }, status: :ok
+      render json: { user: @new_user, token: token }, status: :created
     else
       render json: { error: 'Invalid user data or duplicated presences.'}, status: :unprocessable_entity
     end
