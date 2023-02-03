@@ -6,8 +6,8 @@ RSpec.describe BandsController, type: :request do
   let(:band) { create(:band) }
 
   before(:each) do
-    admin = FactoryBot.create(:user, :admin)
-    @header = { 'Authorization' => token(admin) }
+    @admin = FactoryBot.create(:user, :admin)
+    @header = { 'Authorization' => token(@admin) }
   end
 
   describe 'GET /bands' do
@@ -37,6 +37,7 @@ RSpec.describe BandsController, type: :request do
       end
     end
   end
+
   describe 'POST /band/1' do
     context 'when the band is valid' do
       it 'creates a band' do
@@ -53,6 +54,19 @@ RSpec.describe BandsController, type: :request do
       it 'renders unprocessable entity' do
         post bands_path, params: { band: attributes_for(:band, :invalid) }, headers: @header
         expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+  end
+
+  describe 'PUT /band/1' do
+    context 'when updates the band' do
+      it 'updates the band' do
+        new_band = attributes_for(:band)
+        band = @admin.bands.create(new_band)
+        put band_path(band), params: { band: attributes_for(:band, :sodom) }, headers: @header
+        json_response = json_exclude_keys(parse_json(response.body))
+        expect(response).to have_http_status(:ok)
+        expect(json_response['name']).to match(/Sodom/)
       end
     end
   end
