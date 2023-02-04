@@ -28,6 +28,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'database_cleaner-active_record', '~> 2.0'
   gem 'faker'
   gem 'json_spec'
   gem 'mocha', '~> 1.13'
@@ -38,5 +39,3 @@ group :test do
   gem 'simplecov', '0.17.1'
   gem 'webmock'
 end
-
-gem "database_cleaner-active_record", "~> 2.0", :group => :test
