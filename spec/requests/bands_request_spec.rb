@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe BandsController, type: :request do
+RSpec.describe 'Bands', type: :request do
   let(:band) { create(:band) }
 
   before(:each) do
